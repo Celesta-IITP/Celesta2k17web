@@ -72,15 +72,15 @@ if(isset($_GET['act'])){
 
   }
   
-  function validate(email,pass){
+  function validate(id,pass){
 
-      var emailRegex = '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}.[A-Za-z]{2,4}$'; 
+      var idRegex = '^[Cc][Ll][Ss][Tt]([0-9]{4})$'; 
 
-      bemail = check(email, emailRegex);
+      bid = check(id,idRegex);
 
-      if(!bemail){
+      if(!bid){
 
-          $("#errorBanner").text("Invalid email");
+          $("#errorBanner").text("Invalid ID");
 
           return false;
 
@@ -98,16 +98,16 @@ if(isset($_GET['act'])){
       console.log("clicked");
       e.preventDefault();
 
-      var email = $("#email").val().trim();
+      var id = $("#email").val().trim();
 
       var pass = $("#pass").val().trim();
 
       if (validate( email,pass)) {
 
-        $.post("http://<?php echo $_SERVER['HTTP_HOST']; ?>/api/login",
+        $.post("http://<?php echo $_SERVER['HTTP_HOST']; ?>/api/login/",
             {
-              emailid:email,
-              password:pass
+                username: id,
+                password: pass
             },
             function(data, status){
               console.log("Response");
@@ -178,11 +178,11 @@ if(isset($_GET['act'])){
   <br>
   <div class='login_fields'>
     <div class='login_fields__user'>
-      <span style="color: #FFFFFF; width:100%; text-align: center; transform: translateX(-50%); left: 10%; position: relative;">Email:</span><br>
+      <span style="color: #FFFFFF; width:100%; text-align: center; transform: translateX(-50%); left: 10%; position: relative;">Celesta Id:</span><br>
       <!-- <div class='icon'>
         <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/user_icon_copy.png'>
       </div>Email
-       --><input style="margin-top: 2px;" autocomplete="off" placeholder='Email-ID' id="email" type='text'>
+       --><input style="margin-top: 2px;" autocomplete="off" placeholder='ID: CLST1234' id="email" type='text'>
         <div class='validation'>
           <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png'>
         </div>
