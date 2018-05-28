@@ -21,85 +21,13 @@ session_start();
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+   	<link rel="stylesheet" href="assets/css/main.css" />
+
     <link rel="stylesheet" href="./css/animation.css">
 
     <link rel="stylesheet" href="./css/demo.css">
 
     <link rel="stylesheet" href="./css/loader.css">
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-  <script>
-$(function() {
-
-  $("#rf").submit(function(e) {
-$("#loader_gif").fadeIn();
-    // validate and process form here
-console.log("clicked");
-    e.preventDefault();
-
-    var fname = $("input[name=fname]").val().trim();
-
-    var email = $("input[name=email]").val().trim();
-
-    var college = $("input[name=college]").val().trim();
-    var password = $("input[name=password]").val();
-
-    var phone = $("input[name=phone]").val().trim();
-
-    if (validate(fname, email, college, phone,password)) {
-
-     
-      $.post("http://<?php echo $_SERVER['HTTP_HOST']; ?>/api/register",
-            {
-              name: fname,
-              emailid:email,
-              password:password,
-              mobile:phone,
-              college:college
-            },
-            function(data, status){
-              console.log("Response");
-              console.log("Data: " + data + "\nStatus: " + status);
-              if(status=='success'){//$("#myloader").fadeOut();
-              $("#loader_gif").fadeOut();
-
-                console.log(data);
-
-                if(data["status"]=="200"){
-                  $('.success').show();            
-                  $("#greet").html('<center><b>Registration Successful</b><br>A confirmation email has been sent.</center>');
-                  $("#greet").fadeIn();
-                  // $("#greet").css('background','#5FAB22');
-                  id01.style.display = "none";
-                }else{
-                  console.log("err");
-              $("#loader_gif").fadeOut();
-                  $("#errorBanner").fadeIn();
-                   $("#errorBanner").html('<center><b>Error occured<br>'+data["message"]+'</center>');
-              }
-//              $('html, body').animate({
-//                      scrollTop: $("#header").offset().top
-//                  }, 500);
- 
-              }else{//$("#myloader").fadeOut();
-                  $("#errorBanner").fadeIn();
-              $("#loader_gif").fadeOut();
-                  $("#errorBanner").fadeIn();
-                  $("#errorBanner").html('An error occured.<br> Please try again.');
-                  
-                  console.log("Failed "+data);
-
-                }
-                },"json");
-      
-
-    }
-
-  });
-
-});
-
-      </script>
     <style type="text/css">
 
 /*=============================== Basic ===============================*/
@@ -114,7 +42,7 @@ console.log("clicked");
 
       display: block;
 
-      background: #fff url("./images/bg_img.jpg") no-repeat center fixed;
+      background: url("images/bg_img.jpg");
 
       background-size: cover;
 
@@ -564,11 +492,47 @@ display: none;
 }
     </style>
 
-      </head>
 
-      <body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
-      <div id="loading">
+</head>
+<style type="text/css">
+body{
+	background: linear-gradient(to right, #bab9b9,#bab9b9,blue,white,white,blue,#bab9b9,#bab9b9);
+	background : white;
+	background-size: auto 100%;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 1400px) {
+
+			#footer {
+				position: relative;
+				bottom: 0;
+			}
+
+				#footer .inner {
+					height: auto;
+					display: block;
+				}
+
+					#footer .inner .content,
+					#footer .inner .copyright {
+						display: block;
+						width: 100%;
+						text-align: center;
+					}
+
+				#footer .info {
+					display: none;
+				}
+
+		}
+
+</style>
+<body>
+
+<div id="loading">
 
       <div id="loading-center">
 
@@ -584,53 +548,35 @@ display: none;
 
       </div>
 
-      </div>
+</div>
 
     <script type="text/javascript">
 
       $(window).load(function(){
 
-        $('#loading').delay(350).fadeOut();
+        $('#loading').delay(350).fadeOut("slow", function(){
+            $('#main').css("display", "block");
+            $('.layer.one').css("background", "#fff");
+            $('#particles').particleground({
 
-      });   
+              dotColor: 'rgba(0,0,255,0.27)',
+
+              lineColor: 'rgba(255,0,0,0.12)',
+
+              density: 7500
+
+              });
+        });
+      
+     });   
 
       </script>
 
-      <nav style="position: fixed;z-index: 10;width: 100%">
-
-        <ul class="links" id="nav">
-
-          <li><a data-page="home" href="#">Home</a></li>
-
-          <li><a data-page="events" href="Events.php">Events</a></li>
-          <li><a   href="Workshop/ai.htm"  >Workshop</a> </li>
-          <li><a data-page="spons" href="images/schedule.png" download >Schedule</a></li>
-
-          <li><a data-page="contacts" href="#">Team</a></li>
-
-          <li><a data-page="contacts" href="#">Sponsors</a></li>
-          
-          <li><a data-page="contacts" href="Gallery/gallery.php">Gallery</a></li>
-          <?php
-            if(isset($_SESSION['uid'])){
-              $name = explode(" ",$_SESSION['name']) ;
-
-              echo "<li>Hi ".$name[0]."! <a  href=\"login.php?act=logout\">Log Out</a></li>";
-            }else{
-              echo "<li><a  href=\"login.php\">Login</a></li>
-              <li><a onclick=\"document.getElementById('id01').style.display='block'\" class=\"cd-signup\" data-page=\"register\" href=\"#\">Register</a></li>
-              ";
-            }
-          ?>
-          
-
-          <li><a data-page="contacts" href="#">About</a></li>
-
-          <li class="icon"><a href="javascript:void(0);" onclick="nav();">&#9776;</a></li>
-
-        </ul>
-
-      </nav>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
 <div id="live" style="
     top: 50px;
@@ -646,10 +592,52 @@ display: none;
     <?php include 'reg.php'; ?>
         <article class="kontext capable animate">
 
-          <div id="particles" class="layer one right show">
+          <div class="layer one right show">
+
+            <!-- Header -->
+      <header id="header">
+        <div class="close common" style="position: absolute; z-index: 2000; ">&times</div>
+        <div class="inner">
+          <div class="content">
+            <h1>Home</h1>
+            <h2><a href="#">Events</a><br>
+            <a href="#">Workshop</a><br>
+            <a data-page="schedule" href="images/schedule.png" download>Schedule</a><br>
+            <a href="#">Team</a><br>
+            <a href="#">Sponsers</a><br>
+            <a data-page="contacts" href="Gallery/gallery.php" >Gallery</a><br>
+            </h2>
+            <?php
+                    if(isset($_SESSION['uid'])){
+                      
+                      $name = explode(" ",$_SESSION['name']) ;
+
+                      echo "Hi ".$name[0]."! <a class="button big alt" href=\"login.php?act=logout\"><span>Log Out</span></a>";
+                    
+                    }
+                    
+                    else {
+                      
+                        echo "<a class="button big alt" href=\"login.php\"><span>Login</span></a>
+                        <b><br>Haven't registered yet <a class=\"cd-signup\" data-page=\"register\" href=\"Register.php\">Register</a></b>";
+                    
+                    }
+                ?>
+          </div>
+          <a href="#" id="data" class="button hidden common"><span>Let's Go</span></a>
+        </div>
+      </header>
+
+    <!-- Main -->
+          <div id="main">
+              <div class="inner">
+                <div id="particles" style="position: absolute; z-index: 2;"></div>
+                <img align="middle" style="width: 100%; " src="images/bg_img.jpg">
+              </div>
+          </div>
 
           <div id="intro">
-          	
+            
           </div>
        
           </div>
@@ -686,6 +674,26 @@ display: none;
 
         </article>
 
+        <!-- Footer -->
+      <footer id="footer" style="display: none;">
+        <a href="#" class="info fa fa-info-circle"><span>About</span></a>
+        <div class="inner">
+          <div class="content">
+            <h3>About Celesta 2k18</h3>
+            <p>In tempor porttitor nisl non elementum. Nulla ipsum ipsum, feugiat vitae vehicula vitae, imperdiet sed risus. Fusce sed dictum neque, id auctor felis. Praesent luctus sagittis viverra. Nulla erat nibh, fermentum quis enim ac, ultrices euismod augue. Proin ligula nibh, pretium at enim eget, tempor feugiat nulla.</p>
+          </div>
+          <div class="copyright">
+            <h3>Follow us</h3>
+            <ul class="icons">
+              <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+              <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+              <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+            </ul>
+          
+          </div>
+        </div>
+      </footer>
+
         <script type='text/javascript' src='./js/jquery.particleground.min.js'></script>
 
         <script src="./js/transitions.js"></script>
@@ -694,7 +702,10 @@ display: none;
 
         <script type="text/javascript">
 
+
+
           var k = kontext( document.querySelector( '.kontext' ) );
+
 
           function loader(Id ,pageUrl){
 
@@ -704,15 +715,9 @@ display: none;
 
           $(document).ready(function() {
 
-            $('#particles').particleground({
+            $('#main').css("display", "none");
 
-              dotColor: 'rgba(0,0,255,0.16)',
-
-              lineColor: 'rgba(255,0,0,0.12)',
-
-              density: 7500
-
-              });
+            
 
             $('.intro').css({
 
@@ -836,4 +841,5 @@ display: none;
 
         </script>
 
-</body></html>
+</body>
+</html>
