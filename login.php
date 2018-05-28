@@ -1,6 +1,4 @@
-
 <?php
-//hi
 session_start();
 
 if(isset($_GET['act'])){
